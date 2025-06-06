@@ -1,0 +1,16 @@
+{% load static %}
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static "css/output.css" %}" rel="stylesheet">
+  <style>
+    .form-container {
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+    .form-container.hidden {
+      opacity: 0;
+      transform: translateX(-100%);
+      display: none;
+    }
+  </style>

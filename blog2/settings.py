@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # my appa
-    "Home_app"
+    "Home",
+    "Login"
 
 ]
 
