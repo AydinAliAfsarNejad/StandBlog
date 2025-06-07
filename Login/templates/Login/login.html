@@ -10,47 +10,39 @@
     <div class="min-h-screen w-full m-0 flex flex-col sm:justify-center sm:items-center py-12 sm:px-6 lg:px-8">
         <div class="my-6 items-center text-center">
             <h1 class="text-xl sm:text-3xl font-bold my-3">Sign in to your account</h1>
-            <p>Or <span id="create-account" class="text-sky-500 font-medium hover:text-sky-400 duration-300 cursor-pointer">create an account</span></p>
+            <p>Or <a href="register/" id="create-account" class="text-sky-500 font-medium hover:text-sky-400 duration-300 cursor-pointer">create an account</a></p>
         </div>
 
         <div class="flex flex-col sm:w-120 h-full bottom-0 top-0 bg-gray-100 rounded-2xl shadow-xl">
             <!-- Sign In Form -->
             <div id="signin-form" class="form-container">
-                <form class="m-7 p-4 justify-center text-start">
-                    <h3>Email address</h3>
-                    <input class="w-full border-1 rounded-sm my-2 p-1" type="email" placeholder="Enter Your Email address">
+                <form method="post" autocomplete="off" class="m-7 p-4 justify-center text-start">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                    <div class="messages mb-4">
+                        {% for message in messages %}
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <h3>Username</h3>
+                    <input class="w-full border-1 rounded-sm my-2 p-1" type="text" name="username" placeholder="Enter Your Username" required>
 
                     <h3 class="mt-10">Password</h3>
-                    <input class="w-full border-1 rounded-sm my-1 p-1" type="password" id="password" placeholder="Enter Your Password">
+                    <input class="w-full border-1 rounded-sm my-1 p-1" type="password" name="password" placeholder="Enter Your Password" required>
 
                     <div class="flex justify-between">
                         <div>
-                            <input id="Remember-me" type="checkbox" placeholder="Remember me">
+                            <input id="Remember-me" type="checkbox" name="remember" placeholder="Remember me">
                             <label for="Remember-me">Remember me</label>
                         </div>
-
                     </div>
 
                     <button class="w-full text-white h-12 text-xl font-medium text-center rounded-sm mt-20 bottom-0 bg-amber-500 hover:bg-amber-600 duration-300 shadow-md" type="submit">Sign in</button>
-                </form>
-            </div>
-
-            <!-- Sign Up Form -->
-            <div id="signup-form" class="form-container hidden">
-                <form class="m-7 p-4 justify-center text-start">
-                    <h3>Full Name</h3>
-                    <input class="w-full border-1 rounded-sm my-2 p-1" type="text" placeholder="Enter Your Full Name">
-
-                    <h3 class="mt-10">Email address</h3>
-                    <input class="w-full border-1 rounded-sm my-2 p-1" type="email" placeholder="Enter Your Email address">
-
-                    <h3 class="mt-10">Password</h3>
-                    <input class="w-full border-1 rounded-sm my-1 p-1" type="password" placeholder="Create a Password">
-
-                    <h3 class="mt-10">Confirm Password</h3>
-                    <input class="w-full border-1 rounded-sm my-1 p-1" type="password" placeholder="Confirm Your Password">
-
-                    <button class="w-full text-white h-12 text-xl font-medium text-center rounded-sm mt-20 bottom-0 bg-amber-500 hover:bg-amber-600 duration-300 shadow-md" type="submit">Create Account</button>
                 </form>
             </div>
         </div>
