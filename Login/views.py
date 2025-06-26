@@ -1,27 +1,31 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import CreateUserForm, LoginForm
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, auth
+from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 # Create your views here.
-
-
 
 def register(request):
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('login')
+            user = form.save()
+            login(request, user)  # Log the user in after registration
+            return redirect('login:login')
 
     context = {'registerForm': form}
     return render(request, "Login/register.html", context=context)
 
-def Login(request):
-    form = LoginForm()
 
+    
+def Login(request):
+    if request.user.is_authenticated == True:
+        return redirect('Home:home')
+    form = LoginForm()
+    
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
         if form.is_valid():
@@ -30,8 +34,8 @@ def Login(request):
 
             user = auth.authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)
-                return redirect('/')
+                auth.login(request, user)
+                return redirect('Home:home')
             else:
                 messages.error(request, 'Invalid username or password.')
         else:
@@ -39,3 +43,8 @@ def Login(request):
 
     context = {'loginForm': form}
     return render(request, "Login/login.html", context=context)
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('Home:home')

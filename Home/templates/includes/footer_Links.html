@@ -22,3 +22,14 @@
           }
       }
     </script>
+
+
+<script>
+    let $ = document
+    const logout = $.querySelector(".logout-container")
+    const logoutIcon = $.querySelector(".logout-icon")
+
+    logoutIcon.addEventListener('click' , () => {
+        logout.style.display = "block";
+    });
+</script>

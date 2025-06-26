@@ -5,80 +5,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Registration Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background: linear-gradient(120deg, #f0f9ff, #e0f2fe);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        orange: {
+                            500: '#f97316',
+                        }
+                    }
+                }
+            }
         }
-    </style>
+    </script>
 </head>
-<body>
-    <div class="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-lg">
-        <div class="text-center">
-            <h1 class="text-2xl font-bold text-gray-900">Create Account</h1>
-            <p class="mt-2 text-gray-600">Please fill in your details</p>
-        </div>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="bg-orange-500 py-4 px-6">
+                <h2 class="text-white text-xl font-bold text-center">Create Account</h2>
+            </div>
 
-        <form method="POST" action="{% url 'register' %}" class="mt-8 space-y-6">
-            {% csrf_token %}
-            
+            <div class="px-6 pt-4 text-center">
+                <p class="text-sm text-gray-600">
+                    Already have an account?
+                    <a href="{% url 'login:login' %}" class="text-orange-500 hover:text-orange-600 font-medium">Sign in</a>
+                </p>
+            </div>
+
             {% if registerForm.errors %}
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                {% for field in registerForm %}
-                    {% for error in field.errors %}
-                        <p>{{ error }}</p>
+            <div class="px-6 pt-4">
+                {% for field, errors in registerForm.errors.items %}
+                    {% for error in errors %}
+                        <p class="text-red-600 text-sm mb-2">{{ error }}</p>
                     {% endfor %}
                 {% endfor %}
             </div>
             {% endif %}
 
-            <div class="space-y-4">
+            <form id="registerForm" method="post" class="p-6 space-y-4">
+                {% csrf_token %}
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                    <input type="text" name="username" id="username" required
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <input type="text" id="username" name="username" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500">
                 </div>
 
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" name="email" id="email" required
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <input type="email" id="email" name="email" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500">
                 </div>
 
                 <div>
                     <label for="password1" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" name="password1" id="password1" required
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <input type="password" id="password1" name="password1" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500">
+                    <p id="password1Error" class="mt-1 text-xs text-red-600 hidden">
+                        Password must be at least 8 characters and contain uppercase, lowercase letters and numbers
+                    </p>
                 </div>
 
                 <div>
                     <label for="password2" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                    <input type="password" name="password2" id="password2" required
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <input type="password" id="password2" name="password2" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500">
+                    <p id="password2Error" class="mt-1 text-xs text-red-600 hidden">Passwords don't match</p>
                 </div>
-            </div>
 
-            <div>
-                <button type="submit"
-                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Register
-                </button>
-            </div>
-
-            <div class="text-center">
-                <p class="text-sm text-gray-600">
-                    Already have an account? 
-                    <a href="{% url 'login' %}" class="font-medium text-amber-500 hover:text-amber-600 duration-300">
-                        Sign in
-                    </a>
-                </p>
-            </div>
-        </form>
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                        Register
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            // Reset errors
+            document.getElementById('password1Error').classList.add('hidden');
+            document.getElementById('password2Error').classList.add('hidden');
+
+            const password1 = document.getElementById('password1').value;
+            const password2 = document.getElementById('password2').value;
+
+            // Validate password strength
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+            if (!passwordRegex.test(password1)) {
+                e.preventDefault();
+                document.getElementById('password1Error').classList.remove('hidden');
+                return;
+            }
+
+            // Check if passwords match
+            if (password1 !== password2) {
+                e.preventDefault();
+                document.getElementById('password2Error').classList.remove('hidden');
+                return;
+            }
+        });
+    </script>
 </body>
 </html>
