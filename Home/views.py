@@ -6,6 +6,7 @@ from Post.models import Article
 
 def home(request):
     articles = Article.objects.all()
+    # articles = Article.custum_objects.filter()
     # articles = Article.objects.published()
     # articles = Article.objects.filter(is_published=True)
     return render(request, "Home_app/index.html", {'articles': articles})

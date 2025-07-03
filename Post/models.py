@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+# from .Manager import PostManager
 
 
 # Create your models here.
@@ -19,8 +21,11 @@ class Article(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     Updated = models.DateTimeField(auto_now=True)
     # published = models.BooleanField(default=True)
-    # is_published = models.BooleanField(default=False)
-    objects = models.Manager()
+    # # is_published = models.BooleanField(default=False)
+    # objects = models.Manager()
+    # custum_objects = PostManager()
+    # # test = models.TextField(blank=True)
+
 
     def __str__(self):
         return f"{self.title} --- {self.body[:30]}"

@@ -63,8 +63,7 @@ ROOT_URLCONF = 'blog2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,9 +84,9 @@ WSGI_APPLICATION = 'blog2.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'Mysql',
-#         'USER': 'mysql',
-#         'PASSWORD': '74108520',
+#         'NAME': 'mysqldb',
+#         'USER': 'root',
+#         'PASSWORD': '',
 #         "HOST": "localhost",
 #         "PORT": "3306",
 #     }
