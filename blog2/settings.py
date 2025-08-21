@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     # my appa
     "Home",
     "Login",
-    "Post.apps.PostConfig",
+    "Post",
 
 ]
 
@@ -70,6 +70,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
+                'context-processors.context-processors.recent_Articles',
             ],
         },
     },
